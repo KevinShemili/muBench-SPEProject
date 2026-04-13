@@ -10,16 +10,24 @@ import argcomplete
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', '--config-file', action='store', dest='parameters_file',
-                    help='The Traffic Parameters file', default=f'{Traffic_PATH}/TrafficParameters.json')
+parser.add_argument(
+    "-c",
+    "--config-file",
+    action="store",
+    dest="parameters_file",
+    help="The Traffic Parameters file",
+    default=f"{Traffic_PATH}/TrafficParameters.json",
+)
 
 argcomplete.autocomplete(parser)
 
 try:
     args = parser.parse_args()
 except ImportError:
-    print("Import error, there are missing dependencies to install.  'apt-get install python3-argcomplete "
-          "&& activate-global-python-argcomplete3' may solve")
+    print(
+        "Import error, there are missing dependencies to install.  'apt-get install python3-argcomplete "
+        "&& activate-global-python-argcomplete3' may solve"
+    )
 except AttributeError:
     parser.print_help()
 except Exception as err:
@@ -30,7 +38,7 @@ parameters_file_path = args.parameters_file
 try:
     with open(parameters_file_path) as f:
         params = json.load(f)
-    Traffic_parameters = params['TrafficParameters']
+    Traffic_parameters = params["TrafficParameters"]
     if "OutputPath" in params.keys() and len(params["OutputPath"]) > 0:
         output_path = params["OutputPath"]
         if output_path.endswith("/"):
@@ -58,10 +66,8 @@ if keyboard_input == "y":
     with open(f"{output_path}/{output_file}", "w") as f:
         f.write(json.dumps(Traffic, indent=2))
 
-    #if output_path != Traffic_PATH:
+    # if output_path != Traffic_PATH:
     #    shutil.copy(parameters_file_path, f"{output_path}/")
 
     print(f"'{output_path}/{output_file}")
     print("File Saved!")
-
-

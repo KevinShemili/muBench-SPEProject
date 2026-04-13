@@ -12,16 +12,24 @@ import argcomplete
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-c', '--config-file', action='store', dest='parameters_file',
-                    help='The ServiceGraph Parameters file', default=f'{SERVICEMESH_PATH}/ServiceGraphParameters.json')
+parser.add_argument(
+    "-c",
+    "--config-file",
+    action="store",
+    dest="parameters_file",
+    help="The ServiceGraph Parameters file",
+    default=f"{SERVICEMESH_PATH}/ServiceGraphParameters.json",
+)
 
 argcomplete.autocomplete(parser)
 
 try:
     args = parser.parse_args()
 except ImportError:
-    print("Import error, there are missing dependencies to install.  'apt-get install python3-argcomplete "
-          "&& activate-global-python-argcomplete3' may solve")
+    print(
+        "Import error, there are missing dependencies to install.  'apt-get install python3-argcomplete "
+        "&& activate-global-python-argcomplete3' may solve"
+    )
 except AttributeError:
     parser.print_help()
 except Exception as err:
@@ -41,9 +49,9 @@ try:
         params = json.load(f)
     if "ServiceMeshParameters" in params.keys():
         # backward compatibility
-        graph_parameters = params['ServiceMeshParameters']
+        graph_parameters = params["ServiceMeshParameters"]
     else:
-        graph_parameters = params['ServiceGraphParameters']
+        graph_parameters = params["ServiceGraphParameters"]
     if "OutputPath" in params.keys() and len(params["OutputPath"]) > 0:
         output_path = params["OutputPath"]
         if output_path.endswith("/"):
@@ -60,7 +68,7 @@ except Exception as err:
     print("ERROR: in RunServiceGraphGen,", err)
     exit(1)
 
-output_file_png = f'{os.path.splitext(output_file)[0]}.png'
+output_file_png = f"{os.path.splitext(output_file)[0]}.png"
 servicegraph = get_service_graph(graph_parameters, output_path, output_file_png)
 
 pprint(servicegraph)
@@ -68,10 +76,10 @@ pprint(servicegraph)
 # keyboard_input = input("Save service graph on file? (y) ") or "y"
 keyboard_input = "y"
 if keyboard_input == "y":
-    with open(f'{output_path}/{output_file}', "w") as f:
+    with open(f"{output_path}/{output_file}", "w") as f:
         f.write(json.dumps(servicegraph, indent=2))
 
-    #if parameters_file_path != f"{output_path}/{os.path.basename(parameters_file_path)}":
+    # if parameters_file_path != f"{output_path}/{os.path.basename(parameters_file_path)}":
     #    shutil.copyfile(parameters_file_path, f"{output_path}/{os.path.basename(parameters_file_path)}")
 
     print(f"'{output_path}/{output_file}'")
