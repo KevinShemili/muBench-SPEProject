@@ -107,7 +107,7 @@ def query_instant(promql, ts):
 # instead of just one final total.
 # This is relevant for bucket metrics as in the analysis we conduct we need to see
 # how the measurements were distributed over time
-def query_range_raw(metric, service, start_s, end_s, step="5s"):
+def query_range_raw(metric, service, start_s, end_s, step="30s"):
     url = f"{PROMETHEUS_URL}/api/v1/query_range"
 
     promql = f'{metric}{{app_name="{service}"}}'
@@ -167,7 +167,7 @@ def main():
         for service in SERVICES:
             print(f"Fetching raw bucket series {metric} for {service} ...")
 
-            results = query_range_raw(metric, service, start_s, end_s, step="5s")
+            results = query_range_raw(metric, service, start_s, end_s, step="30s")
             all_data["raw_bucket_series"][metric][service] = results
 
             if not results:
