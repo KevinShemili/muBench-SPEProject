@@ -1,0 +1,53 @@
+{
+  "s0": {
+    "external_services": [
+      {
+        "seq_len": 100,
+        "services": [
+          "s1"
+        ],
+        "probabilities": {
+          "s1": 1.0
+        }
+      },
+      {
+        "seq_len": 1,
+        "services": [
+          "sdb1"
+        ]
+      }
+    ]
+  },
+  "sdb1": {
+    "external_services": []
+  },
+  "s1": {
+    "external_services": [
+      {
+        "seq_len": 100,
+        "services": [
+          "s2"
+        ],
+        "probabilities": {
+          "s2": 1.0
+        }
+      },
+      {
+        "seq_len": 1,
+        "services": [
+          "sdb1"
+        ]
+      }
+    ]
+  },
+  "s2": {
+    "external_services": [
+      {
+        "seq_len": 1,
+        "services": [
+          "sdb1"
+        ]
+      }
+    ]
+  }
+}
