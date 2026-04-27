@@ -57,6 +57,8 @@ py -3.10 -m venv .venv
 
 Install the required Python dependencies:
 
+> Use the fixed version in `updated_requirements.txt`, which contains the corrected package versions.
+
 ```bash
 pip install -r spe-project/updated_requirements.txt
 ```
